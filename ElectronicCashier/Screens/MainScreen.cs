@@ -1,4 +1,6 @@
-﻿namespace ElectronicCashier.Screens
+﻿using ElectronicCashier.DTOs;
+
+namespace ElectronicCashier.Screens
 {
     internal class MainScreen
     {
@@ -10,9 +12,31 @@
             Console.WriteLine("- 3. Show all transactions.              -");
             Console.WriteLine("------------------------------------------");
         }
-        private void MainScreenFunction()
+        public void MainScreenFunction(User user)
         {
+            int selectedOption = int.Parse(Console.ReadLine());
+            //Crear un objeto User que nos vendrá dado por parámetro
 
+            switch (selectedOption)
+            {
+                case 1:
+                    {
+                        //Escribir en el JSON el nuevo valor del dinero
+                    }
+                    break;
+
+                case 2:
+                    {
+                        //Escribir en el JSON el nuevo valor del dinero
+                    }
+                    break;
+
+                case 3:
+                    {
+                        //Leer la lista del User de transacciones y imprimirla por pantalla
+                    }
+                    break;
+            }
         }
     }
 }
