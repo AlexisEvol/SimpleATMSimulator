@@ -20,11 +20,20 @@ namespace ElectronicCashier.Screens
             string creditCardNumber = Console.ReadLine();
             string pin = Console.ReadLine();
             List<User> usersList = LoadListFromFile();
-            foreach (User user in usersList)
+            if (usersList != null)
             {
-                CheckIfUserExists(creditCardNumber, pin, user);
+                bool accountExists = CheckIfUserExists(creditCardNumber, pin, usersList, usersList.Count) == true;
+                if (accountExists == false)
+                {
+                    Console.WriteLine("XD");
+                }
             }
-            
+            else
+            {
+                Console.WriteLine("There aren't any accounts registered, be the first one!");
+                LogInScreenFunction();
+            }
+
         }
 
         private List<User> LoadListFromFile()
@@ -33,18 +42,18 @@ namespace ElectronicCashier.Screens
             List<User> usersList = JsonConvert.DeserializeObject<List<User>>(jsonString);
             return usersList;
         }
-        private void CheckIfUserExists(string creditCardNumber, string pin, User user)
+        private bool CheckIfUserExists(string creditCardNumber, string pin, List<User> usersList, int amountUsers)
         {
-            if (user.creditCardNumber.Equals(creditCardNumber) && user.cardPIN.Equals(pin))
+            foreach (User user in usersList)
             {
-                mainScreen.MainScreenVisual();
-                mainScreen.MainScreenFunction(creditCardNumber);
+                if (user.creditCardNumber.Equals(creditCardNumber) && user.cardPIN.Equals(pin))
+                {
+                    mainScreen.MainScreenVisual();
+                    mainScreen.MainScreenFunction(creditCardNumber);
+                    return true;
+                }
             }
-            else
-            {
-                Console.WriteLine("The card you tried to login with doesn't exist or the PIN is wrong.");
-                LogInScreenFunction();
-            }
+            return false;
         }
     }
 }

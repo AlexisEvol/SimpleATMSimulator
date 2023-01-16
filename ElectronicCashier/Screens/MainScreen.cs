@@ -20,6 +20,7 @@ namespace ElectronicCashier.Screens
         public void MainScreenFunction(string creditCardNumber)
         {
             List<User> users = JsonConvert.DeserializeObject<List<User>>(readJson.ReadJsonFile(Constants.pathUsers));
+            List<Transaction> transactions = JsonConvert.DeserializeObject<List<Transaction>>(readJson.ReadJsonFile(Constants.pathTransactions));
             User user = GetUserFromList(users, creditCardNumber);
             string selectedOption = Console.ReadLine();
 
@@ -29,7 +30,7 @@ namespace ElectronicCashier.Screens
                     {
                         Console.WriteLine("How much money you wish to deposit?");
                         double depositedMoney = double.Parse(Console.ReadLine());
-                        SaveChangesToFiles(user, user.amountOfMoney + depositedMoney, users, Constants.pathUsers);
+                        SaveChangesToFiles(user, user.amountOfMoney + depositedMoney, users, transactions, "deposited", depositedMoney);
                         MainScreenFunction(creditCardNumber);
                     }
                     break;
@@ -39,14 +40,15 @@ namespace ElectronicCashier.Screens
                         Console.WriteLine("How much money you wish to extract?");
                         double extractedMoney = double.Parse(Console.ReadLine());
                         CheckAmountOfMoney(extractedMoney, user);
-                        SaveChangesToFiles(user, user.amountOfMoney - extractedMoney, users, Constants.pathUsers);
+                        SaveChangesToFiles(user, user.amountOfMoney - extractedMoney, users, transactions, "extracted", extractedMoney);
                         MainScreenFunction(creditCardNumber);
                     }
                     break;
 
                 case "3":
                     {
-                        transactionScreen.ShowAllTransactions();
+                        transactionScreen.ShowAllTransactions(user.creditCardNumber);
+                        MainScreenFunction(creditCardNumber);
                     }
                     break;
                 default:
@@ -55,11 +57,16 @@ namespace ElectronicCashier.Screens
             }
         }
 
-        private void SaveChangesToFiles(User user, double money, List<User> users, string path)
+        private void SaveChangesToFiles(User user, double money, List<User> users, List<Transaction> transactions, string typeTransaction, double transactionMoney)
         {
             UpdateUserMoney(user, users, money);
-            writeJson.WriteJsonFile(users, path);
-            //Crear una transacción y escribirla en el json
+            writeJson.WriteJsonFile(users, Constants.pathUsers);
+
+            if (transactions == null)
+                transactions = new List<Transaction>();
+
+            AddTransactionToList(transactions, typeTransaction, user.creditCardNumber, transactionMoney);
+            writeJson.WriteJsonFile(transactions, Constants.pathTransactions);
         }
 
         private void CheckAmountOfMoney(double extractedMoney, User user)
@@ -81,6 +88,16 @@ namespace ElectronicCashier.Screens
                 money
                 );
             users.Add(updatedUser);
+        }
+        private void AddTransactionToList(List<Transaction> transactions, string typeTransaction, string creditCardNumber, double money)
+        {
+            Transaction transaction = new Transaction(
+            creditCardNumber,
+            money,
+            DateTime.Now.ToString(),
+            typeTransaction
+            );
+            transactions.Add(transaction);
         }
 
         private void RemoveUserFromList(List<User> users)

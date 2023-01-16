@@ -47,7 +47,6 @@ namespace ElectronicCashier.Screens
         {
             if (!File.Exists(Constants.pathUsers))
             {
-                //File.Create(Constants.pathUsers);
                 var userFile = File.Create(Constants.pathUsers);
                 userFile.Close();
             }
