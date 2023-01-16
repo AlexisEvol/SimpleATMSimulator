@@ -1,6 +1,6 @@
 ﻿using ElectronicCashier.DTOs;
+using ElectronicCashier.Utils;
 using Newtonsoft.Json;
-using System.Net.NetworkInformation;
 
 namespace ElectronicCashier.Screens
 {
@@ -20,39 +20,31 @@ namespace ElectronicCashier.Screens
             string creditCardNumber = Console.ReadLine();
             string pin = Console.ReadLine();
             List<User> usersList = LoadListFromFile();
-            CheckIfUserExists(usersList, creditCardNumber, pin);
-            /*foreach(User user in usersList)
+            foreach (User user in usersList)
             {
-                if (user.creditCardNumber.Equals(creditCardNumber) && user.cardPIN.Equals(pin))
-                {
-                    mainScreen.MainScreenVisual();
-                    mainScreen.MainScreenFunction(user);
-                }
+                CheckIfUserExists(creditCardNumber, pin, user);
             }
-            Console.WriteLine("The card you tried to login with doesn't exist or the PIN is wrong.");
-            LogInScreenVisual();
-            LogInScreenFunction();*/
+            
         }
 
         private List<User> LoadListFromFile()
         {
-            string jsonString = readJson.ReadJsonFile();
+            string jsonString = readJson.ReadJsonFile(Constants.pathUsers);
             List<User> usersList = JsonConvert.DeserializeObject<List<User>>(jsonString);
             return usersList;
         }
-        private void CheckIfUserExists(List<User> usersList, string creditCardNumber, string pin)
+        private void CheckIfUserExists(string creditCardNumber, string pin, User user)
         {
-            foreach (User user in usersList)
+            if (user.creditCardNumber.Equals(creditCardNumber) && user.cardPIN.Equals(pin))
             {
-                if (user.creditCardNumber.Equals(creditCardNumber) && user.cardPIN.Equals(pin))
-                {
-                    mainScreen.MainScreenVisual();
-                    mainScreen.MainScreenFunction(user);
-                }
+                mainScreen.MainScreenVisual();
+                mainScreen.MainScreenFunction(creditCardNumber);
             }
-            Console.WriteLine("The card you tried to login with doesn't exist or the PIN is wrong.");
-            LogInScreenVisual();
-            LogInScreenFunction();
+            else
+            {
+                Console.WriteLine("The card you tried to login with doesn't exist or the PIN is wrong.");
+                LogInScreenFunction();
+            }
         }
     }
 }

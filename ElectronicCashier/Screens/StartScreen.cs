@@ -15,22 +15,19 @@ namespace ElectronicCashier.Screens
         }
         public void StartScreenFunction()
         {
-            
-            if(!File.Exists(Constants.path))
-                File.Create(Constants.path);
-
-            int selectedOption = int.Parse(Console.ReadLine());
+            CreateNecessaryFiles();
+            string selectedOption = Console.ReadLine();
 
             switch (selectedOption)
             {
-                case 1:
+                case "1":
                     {
                         logInScreen.LogInScreenVisual();
                         logInScreen.LogInScreenFunction();
                     }
                     break;
 
-                case 2:
+                case "2":
                     {
                         registerScreen.RegisterScreenVisual();
                         registerScreen.RegisterScreenFunction();
@@ -43,6 +40,24 @@ namespace ElectronicCashier.Screens
                         StartScreenFunction();
                     }
                     break;
+            }
+        }
+
+        private void CreateNecessaryFiles()
+        {
+            if (!File.Exists(Constants.pathUsers))
+            {
+                //File.Create(Constants.pathUsers);
+                var userFile = File.Create(Constants.pathUsers);
+                userFile.Close();
+            }
+                
+            
+
+            if (!File.Exists(Constants.pathTransactions))
+            {
+                var transactionFile = File.Create(Constants.pathTransactions);
+                transactionFile.Close();
             }
         }
     }

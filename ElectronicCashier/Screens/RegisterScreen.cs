@@ -1,4 +1,5 @@
 ﻿using ElectronicCashier.DTOs;
+using ElectronicCashier.Utils;
 using Newtonsoft.Json;
 
 namespace ElectronicCashier.Screens
@@ -19,6 +20,7 @@ namespace ElectronicCashier.Screens
 
         public void RegisterScreenFunction()
         {
+            string jsonString = readJson.ReadJsonFile(Constants.pathUsers);
             string creditCardNumber = Console.ReadLine();
             string pinNumber = Console.ReadLine();
             string username = Console.ReadLine();
@@ -27,25 +29,22 @@ namespace ElectronicCashier.Screens
                 username,
                 creditCardNumber,
                 pinNumber,
-                amountMoney,
-                new List<Transaction> {}
+                amountMoney
             );
-
-            string jsonString = readJson.ReadJsonFile();
             List<User> usersList = JsonConvert.DeserializeObject<List<User>>(jsonString);
             
             if (usersList != null)
             {
                 CheckCreditCardExistance(usersList, newUser);
                 usersList.Add(newUser);
-                writeJson.WriteJsonFile(usersList);
+                writeJson.WriteJsonFile(usersList, Constants.pathUsers);
                 RedirectToLogIn();
             }
             else
             {
                 usersList = new List<User>();
                 usersList.Add(newUser);
-                writeJson.WriteJsonFile(usersList);
+                writeJson.WriteJsonFile(usersList, Constants.pathUsers);
                 RedirectToLogIn();
             }
         }
@@ -58,7 +57,6 @@ namespace ElectronicCashier.Screens
                 {
                     Console.Clear();
                     Console.WriteLine("This credit card is already registered, please use a new one.");
-                    RegisterScreenVisual();
                     RegisterScreenFunction();
                 }
             }

@@ -1,13 +1,11 @@
-﻿using ElectronicCashier.Utils;
-using System.IO;
-
-namespace ElectronicCashier
+﻿namespace ElectronicCashier
 {
     internal class ReadJson
     {
-        public string ReadJsonFile()
+        public string ReadJsonFile(string path)
         {
-            string jsonFileContent = File.ReadAllText(Constants.path);
+            var jsonFileContent = File.ReadAllText(path);
+            
             return jsonFileContent;
         }
     }

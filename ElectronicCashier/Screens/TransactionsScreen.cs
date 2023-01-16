@@ -2,7 +2,7 @@
 {
     internal class TransactionsScreen
     {
-        public void ShowAllTrnasactions()
+        public void ShowAllTransactions()
         {
             //Printear la lista de transacciones que vendrá por parámetro
         }
