@@ -4,5 +4,6 @@
     {
         public const string pathUsers = @"..\..\..\Files\Users.json";
         public const string pathTransactions = @"..\..\..\Files\Transactions.json";
+        public const string pathFile = @"..\..\..\Files\";
     }
 }

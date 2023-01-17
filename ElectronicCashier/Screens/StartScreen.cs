@@ -45,13 +45,17 @@ namespace SimpleATM.Screens
 
         private void CreateNecessaryFiles()
         {
+
+            if (!Directory.Exists(Constants.pathFile))
+            {
+                Directory.CreateDirectory(Constants.pathFile);
+            }
+
             if (!File.Exists(Constants.pathUsers))
             {
                 var userFile = File.Create(Constants.pathUsers);
                 userFile.Close();
             }
-                
-            
 
             if (!File.Exists(Constants.pathTransactions))
             {
