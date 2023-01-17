@@ -1,8 +1,8 @@
-﻿using ElectronicCashier.DTOs;
-using ElectronicCashier.Utils;
+﻿using SimpleATM.Objects;
+using SimpleATM.Utils;
 using Newtonsoft.Json;
 
-namespace ElectronicCashier.Screens
+namespace SimpleATM.Screens
 {
     internal class RegisterScreen
     {

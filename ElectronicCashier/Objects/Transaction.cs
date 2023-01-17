@@ -1,8 +1,8 @@
-﻿namespace ElectronicCashier.DTOs
+﻿namespace SimpleATM.Objects
 {
     internal class Transaction
     {
-        public string creditCardNumber { get; set; }
+        public string creditCardNumber { get;}
         public double money { get; }
         public string date { get; }
         public string typeTransaction { get; }

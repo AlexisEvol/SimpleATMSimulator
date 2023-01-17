@@ -1,8 +1,8 @@
-﻿using ElectronicCashier.DTOs;
-using ElectronicCashier.Utils;
+﻿using SimpleATM.Objects;
+using SimpleATM.Utils;
 using Newtonsoft.Json;
 
-namespace ElectronicCashier.Screens
+namespace SimpleATM.Screens
 {
     internal class LogInScreen
     {
@@ -19,13 +19,14 @@ namespace ElectronicCashier.Screens
         {
             string creditCardNumber = Console.ReadLine();
             string pin = Console.ReadLine();
-            List<User> usersList = LoadListFromFile();
+            List<User> usersList = JsonConvert.DeserializeObject<List<User>>(readJson.ReadJsonFile(Constants.pathUsers));
             if (usersList != null)
             {
                 bool accountExists = CheckIfUserExists(creditCardNumber, pin, usersList, usersList.Count) == true;
                 if (accountExists == false)
                 {
-                    Console.WriteLine("XD");
+                    Console.WriteLine("The credit card number or the PIN aren't correct");
+                    LogInScreenFunction();
                 }
             }
             else
@@ -34,13 +35,6 @@ namespace ElectronicCashier.Screens
                 LogInScreenFunction();
             }
 
-        }
-
-        private List<User> LoadListFromFile()
-        {
-            string jsonString = readJson.ReadJsonFile(Constants.pathUsers);
-            List<User> usersList = JsonConvert.DeserializeObject<List<User>>(jsonString);
-            return usersList;
         }
         private bool CheckIfUserExists(string creditCardNumber, string pin, List<User> usersList, int amountUsers)
         {

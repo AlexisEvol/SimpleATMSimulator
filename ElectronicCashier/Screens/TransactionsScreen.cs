@@ -1,8 +1,8 @@
-﻿using ElectronicCashier.DTOs;
-using ElectronicCashier.Utils;
+﻿using SimpleATM.Objects;
+using SimpleATM.Utils;
 using Newtonsoft.Json;
 
-namespace ElectronicCashier.Screens
+namespace SimpleATM.Screens
 {
     internal class TransactionsScreen
     {
@@ -18,7 +18,7 @@ namespace ElectronicCashier.Screens
                 {
                     if (transaction.creditCardNumber.Equals(creditCardNumber))
                     {
-                        Console.WriteLine($"You have {transaction.typeTransaction} a total of {transaction.money} on the {transaction.date}.");
+                        Console.WriteLine($"You have {transaction.typeTransaction} a total of {transaction.money} $ on the {transaction.date}.");
                         transactionsCounter++;
                     }
                 }

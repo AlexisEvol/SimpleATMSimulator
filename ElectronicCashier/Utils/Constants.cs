@@ -1,4 +1,4 @@
-﻿namespace ElectronicCashier.Utils
+﻿namespace SimpleATM.Utils
 {
     internal class Constants
     {

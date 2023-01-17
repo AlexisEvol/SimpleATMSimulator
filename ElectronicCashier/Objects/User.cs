@@ -1,4 +1,4 @@
-﻿namespace ElectronicCashier.DTOs
+﻿namespace SimpleATM.Objects
 {
     internal class User
     {

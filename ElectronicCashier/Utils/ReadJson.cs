@@ -1,4 +1,4 @@
-﻿namespace ElectronicCashier
+﻿namespace SimpleATM.Utils
 {
     internal class ReadJson
     {

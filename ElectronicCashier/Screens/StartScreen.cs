@@ -1,6 +1,6 @@
-﻿using ElectronicCashier.Utils;
+﻿using SimpleATM.Utils;
 
-namespace ElectronicCashier.Screens
+namespace SimpleATM.Screens
 {
     internal class StartScreen
     {        

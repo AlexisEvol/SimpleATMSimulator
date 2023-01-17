@@ -1,13 +1,12 @@
-﻿using ElectronicCashier.DTOs;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace ElectronicCashier
+namespace SimpleATM.Utils
 {
     internal class WriteJson
     {
-        public void WriteJsonFile<T>(List<T> usersList, string path)
+        public void WriteJsonFile<T>(List<T> list, string path)
         {
-            string usersListString = JsonConvert.SerializeObject(usersList);
+            string usersListString = JsonConvert.SerializeObject(list);
             File.WriteAllText(path, usersListString);
         }   
     }

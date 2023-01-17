@@ -1,4 +1,4 @@
-﻿using ElectronicCashier.Screens;
+﻿using SimpleATM.Screens;
 
 namespace ElectronicCashier
 {
